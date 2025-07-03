@@ -225,7 +225,7 @@ const CRM = () => {
                   
                   {/* Botón para agregar lead */}
                   <Button 
-                    variant="dashed" 
+                    variant="outline" 
                     className="w-full h-20 border-2 border-dashed border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all"
                   >
                     <Plus className="w-5 h-5 text-primary" />

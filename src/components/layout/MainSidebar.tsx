@@ -83,7 +83,7 @@ const menuSections = [
 ];
 
 export const MainSidebar = () => {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
   const { currentBusiness } = useBusiness();
 
@@ -99,6 +99,8 @@ export const MainSidebar = () => {
     }
     return `${baseClass} text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground`;
   };
+
+  const isCollapsed = state === 'collapsed';
 
   if (!currentBusiness) {
     return (
@@ -123,7 +125,7 @@ export const MainSidebar = () => {
             <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
               <Building2 className="w-4 h-4 text-white" />
             </div>
-            {!collapsed && (
+            {!isCollapsed && (
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-sidebar-foreground truncate">
                   {currentBusiness.name}
@@ -140,7 +142,7 @@ export const MainSidebar = () => {
         <div className="flex-1 px-2 py-4 space-y-6">
           {menuSections.map((section) => (
             <SidebarGroup key={section.label}>
-              {!collapsed && (
+              {!isCollapsed && (
                 <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/60 font-semibold mb-2">
                   {section.label}
                 </SidebarGroupLabel>
@@ -153,7 +155,7 @@ export const MainSidebar = () => {
                         <NavLink to={item.url} className={getNavClass(item.url)}>
                           <div className="flex items-center space-x-3 p-2 rounded-lg w-full">
                             <item.icon className="w-5 h-5 flex-shrink-0" />
-                            {!collapsed && (
+                            {!isCollapsed && (
                               <span className="text-sm font-medium">{item.title}</span>
                             )}
                           </div>
@@ -173,7 +175,7 @@ export const MainSidebar = () => {
             <NavLink to="/settings" className={getNavClass('/settings')}>
               <div className="flex items-center space-x-3 p-2 rounded-lg w-full">
                 <Settings className="w-5 h-5" />
-                {!collapsed && <span className="text-sm font-medium">Configuración</span>}
+                {!isCollapsed && <span className="text-sm font-medium">Configuración</span>}
               </div>
             </NavLink>
           </SidebarMenuButton>
