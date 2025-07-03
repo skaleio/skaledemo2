@@ -28,39 +28,43 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/metrics" element={<Metrics />} />
-          <Route path="/crm" element={<CRM />} />
-          <Route path="/whatsapp" element={<WhatsApp />} />
-          <Route path="/leads" element={<Leads />} />
-          <Route path="/sales-reports" element={<SalesReports />} />
-          <Route path="/workflows" element={<Workflows />} />
-          <Route path="/bots-status" element={<BotsStatus />} />
-          <Route path="/logs" element={<Logs />} />
-          <Route path="/content" element={<Content />} />
-          <Route path="/post-generator" element={<PostGenerator />} />
-          <Route path="/social-metrics" element={<SocialMetrics />} />
-          <Route path="/avatars" element={<Avatars />} />
-          <Route path="/video-generator" element={<VideoGenerator />} />
-          <Route path="/video-library" element={<VideoLibrary />} />
-          <Route path="/meta-ads" element={<MetaAds />} />
-          <Route path="/google-ads" element={<GoogleAds />} />
-          <Route path="/seo" element={<SEO />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/settings" element={<Settings />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  console.log('App Component: Iniciando aplicación');
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/metrics" element={<Metrics />} />
+            <Route path="/crm" element={<CRM />} />
+            <Route path="/whatsapp" element={<WhatsApp />} />
+            <Route path="/leads" element={<Leads />} />
+            <Route path="/sales-reports" element={<SalesReports />} />
+            <Route path="/workflows" element={<Workflows />} />
+            <Route path="/bots-status" element={<BotsStatus />} />
+            <Route path="/logs" element={<Logs />} />
+            <Route path="/content" element={<Content />} />
+            <Route path="/post-generator" element={<PostGenerator />} />
+            <Route path="/social-metrics" element={<SocialMetrics />} />
+            <Route path="/avatars" element={<Avatars />} />
+            <Route path="/video-generator" element={<VideoGenerator />} />
+            <Route path="/video-library" element={<VideoLibrary />} />
+            <Route path="/meta-ads" element={<MetaAds />} />
+            <Route path="/google-ads" element={<GoogleAds />} />
+            <Route path="/seo" element={<SEO />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/settings" element={<Settings />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

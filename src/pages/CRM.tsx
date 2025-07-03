@@ -24,7 +24,6 @@ import {
   CheckCheck,
   Clock
 } from 'lucide-react';
-import { useBusiness } from '@/contexts/BusinessContext';
 
 // Mock data para el pipeline de ventas
 const pipelineStages = [
@@ -217,157 +216,165 @@ const LeadCard = ({ lead }: { lead: any }) => {
   );
 };
 
-const CRM = () => {
-  const { currentBusiness } = useBusiness();
+const CRMContent = () => {
+  console.log('CRM Component: Renderizando CRM content');
 
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">CRM WhatsApp</h1>
+          <p className="text-muted-foreground mt-1">
+            Gestiona tu pipeline de ventas con WhatsApp integrado
+          </p>
+        </div>
+        <Button className="bg-primary hover:bg-primary/90">
+          <Plus className="w-4 h-4 mr-2" />
+          Nuevo Lead
+        </Button>
+      </div>
+
+      {/* WhatsApp Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <MessageCircle className="w-5 h-5 text-green-600" />
+              <div>
+                <div className="text-2xl font-bold">156</div>
+                <p className="text-sm text-muted-foreground">Conversaciones activas</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <Clock className="w-5 h-5 text-blue-600" />
+              <div>
+                <div className="text-2xl font-bold">12</div>
+                <p className="text-sm text-muted-foreground">Mensajes pendientes</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <CheckCheck className="w-5 h-5 text-purple-600" />
+              <div>
+                <div className="text-2xl font-bold">89%</div>
+                <p className="text-sm text-muted-foreground">Tasa de respuesta</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-2">
+              <DollarSign className="w-5 h-5 text-orange-600" />
+              <div>
+                <div className="text-2xl font-bold">$15,420</div>
+                <p className="text-sm text-muted-foreground">Ventas por WhatsApp</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Filtros y búsqueda */}
+      <Card className="border-0 shadow-sm">
+        <CardContent className="p-4">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <Input 
+                  placeholder="Buscar leads por nombre, email o teléfono..." 
+                  className="pl-10"
+                />
+              </div>
+            </div>
+            <Select>
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectValue placeholder="Estado WhatsApp" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos</SelectItem>
+                <SelectItem value="active">Activos</SelectItem>
+                <SelectItem value="inactive">Inactivos</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select>
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectValue placeholder="Vendedor" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos</SelectItem>
+                <SelectItem value="juan">Juan Pérez</SelectItem>
+                <SelectItem value="ana">Ana López</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button variant="outline">
+              <Filter className="w-4 h-4 mr-2" />
+              Filtros
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Pipeline Kanban con WhatsApp */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 min-h-[600px]">
+        {pipelineStages.map((stage) => (
+          <div key={stage.id} className="space-y-4">
+            {/* Header de la columna */}
+            <Card className="border-0 shadow-sm">
+              <CardHeader className="p-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm font-semibold">
+                    {stage.name}
+                  </CardTitle>
+                  <Badge variant="secondary" className="text-xs">
+                    {stage.count}
+                  </Badge>
+                </div>
+              </CardHeader>
+            </Card>
+
+            {/* Cards de leads con WhatsApp */}
+            <div className="space-y-3 min-h-[500px] pb-4">
+              {mockLeads
+                .filter(lead => lead.stage === stage.id)
+                .map(lead => (
+                  <LeadCard key={lead.id} lead={lead} />
+                ))}
+              
+              {/* Botón para agregar lead */}
+              <Button 
+                variant="outline" 
+                className="w-full h-20 border-2 border-dashed border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all"
+              >
+                <Plus className="w-5 h-5 text-primary" />
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const CRM = () => {
+  console.log('CRM Component: Iniciando componente CRM');
+  
   return (
     <BusinessProvider>
       <MainLayout>
-        <div className="space-y-6">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">CRM WhatsApp</h1>
-              <p className="text-muted-foreground mt-1">
-                Gestiona tu pipeline de ventas con WhatsApp integrado
-              </p>
-            </div>
-            <Button className="bg-primary hover:bg-primary/90">
-              <Plus className="w-4 h-4 mr-2" />
-              Nuevo Lead
-            </Button>
-          </div>
-
-          {/* WhatsApp Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-2">
-                  <MessageCircle className="w-5 h-5 text-green-600" />
-                  <div>
-                    <div className="text-2xl font-bold">156</div>
-                    <p className="text-sm text-muted-foreground">Conversaciones activas</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-2">
-                  <Clock className="w-5 h-5 text-blue-600" />
-                  <div>
-                    <div className="text-2xl font-bold">12</div>
-                    <p className="text-sm text-muted-foreground">Mensajes pendientes</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-2">
-                  <CheckCheck className="w-5 h-5 text-purple-600" />
-                  <div>
-                    <div className="text-2xl font-bold">89%</div>
-                    <p className="text-sm text-muted-foreground">Tasa de respuesta</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-2">
-                  <DollarSign className="w-5 h-5 text-orange-600" />
-                  <div>
-                    <div className="text-2xl font-bold">$15,420</div>
-                    <p className="text-sm text-muted-foreground">Ventas por WhatsApp</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Filtros y búsqueda */}
-          <Card className="border-0 shadow-sm">
-            <CardContent className="p-4">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                    <Input 
-                      placeholder="Buscar leads por nombre, email o teléfono..." 
-                      className="pl-10"
-                    />
-                  </div>
-                </div>
-                <Select>
-                  <SelectTrigger className="w-full sm:w-[180px]">
-                    <SelectValue placeholder="Estado WhatsApp" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todos</SelectItem>
-                    <SelectItem value="active">Activos</SelectItem>
-                    <SelectItem value="inactive">Inactivos</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select>
-                  <SelectTrigger className="w-full sm:w-[180px]">
-                    <SelectValue placeholder="Vendedor" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todos</SelectItem>
-                    <SelectItem value="juan">Juan Pérez</SelectItem>
-                    <SelectItem value="ana">Ana López</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Button variant="outline">
-                  <Filter className="w-4 h-4 mr-2" />
-                  Filtros
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Pipeline Kanban con WhatsApp */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 min-h-[600px]">
-            {pipelineStages.map((stage) => (
-              <div key={stage.id} className="space-y-4">
-                {/* Header de la columna */}
-                <Card className="border-0 shadow-sm">
-                  <CardHeader className="p-4">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-sm font-semibold">
-                        {stage.name}
-                      </CardTitle>
-                      <Badge variant="secondary" className="text-xs">
-                        {stage.count}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                </Card>
-
-                {/* Cards de leads con WhatsApp */}
-                <div className="space-y-3 min-h-[500px] pb-4">
-                  {mockLeads
-                    .filter(lead => lead.stage === stage.id)
-                    .map(lead => (
-                      <LeadCard key={lead.id} lead={lead} />
-                    ))}
-                  
-                  {/* Botón para agregar lead */}
-                  <Button 
-                    variant="outline" 
-                    className="w-full h-20 border-2 border-dashed border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all"
-                  >
-                    <Plus className="w-5 h-5 text-primary" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <CRMContent />
       </MainLayout>
     </BusinessProvider>
   );
