@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
@@ -19,7 +18,8 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  ShoppingBag
 } from 'lucide-react';
 import {
   Sidebar,
@@ -41,6 +41,12 @@ const menuSections = [
     items: [
       { title: 'Panel General', url: '/', icon: Building2 },
       { title: 'Métricas Ejecutivas', url: '/metrics', icon: BarChart3 },
+    ]
+  },
+  {
+    label: 'E-Commerce',
+    items: [
+      { title: 'Dashboard Shopify', url: '/shopify', icon: ShoppingBag },
     ]
   },
   {
