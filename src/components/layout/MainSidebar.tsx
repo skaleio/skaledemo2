@@ -145,7 +145,10 @@ export const MainSidebar = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={toggleSidebar}
+              onClick={() => {
+                console.log('Toggle sidebar clicked, current state:', state);
+                toggleSidebar();
+              }}
               className="h-8 w-8 p-0 hover:bg-sidebar-accent"
             >
               {isCollapsed ? (
@@ -159,8 +162,8 @@ export const MainSidebar = () => {
           {/* Logo SKALE en sidebar */}
           {!isCollapsed && (
             <div className="mt-3 pt-3 border-t border-sidebar-border/50">
-              <p className="text-xs font-bold text-center bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                SKALE AGENCY
+              <p className="text-sm font-black font-orbitron text-center bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tracking-wider">
+                SKALE
               </p>
             </div>
           )}

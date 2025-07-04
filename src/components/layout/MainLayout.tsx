@@ -27,11 +27,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               </div>
               
               {/* Logo SKALE */}
-              <div className="flex items-center space-x-2">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              <div className="flex items-center">
+                <h1 className="text-2xl font-black font-orbitron bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tracking-wider">
                   SKALE
                 </h1>
-                <span className="text-xs text-muted-foreground">Agency</span>
               </div>
               
               <div className="flex items-center space-x-3">
