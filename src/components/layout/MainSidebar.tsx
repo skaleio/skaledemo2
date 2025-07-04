@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   Building2,
@@ -15,7 +14,12 @@ import {
   BarChart3,
   Target,
   Zap,
-  FileText
+  FileText,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  ShoppingBag
 } from 'lucide-react';
 import {
   Sidebar,
@@ -29,6 +33,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useBusiness } from '@/contexts/BusinessContext';
+import { Button } from '@/components/ui/button';
 
 const menuSections = [
   {
@@ -36,6 +41,12 @@ const menuSections = [
     items: [
       { title: 'Panel General', url: '/', icon: Building2 },
       { title: 'Métricas Ejecutivas', url: '/metrics', icon: BarChart3 },
+    ]
+  },
+  {
+    label: 'E-Commerce',
+    items: [
+      { title: 'Dashboard Shopify', url: '/shopify', icon: ShoppingBag },
     ]
   },
   {
@@ -83,9 +94,27 @@ const menuSections = [
 ];
 
 export const MainSidebar = () => {
-  const { state } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
   const location = useLocation();
   const { currentBusiness } = useBusiness();
+  
+  // Estado para controlar qué secciones están expandidas
+  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>(() => {
+    // Inicializar todas las secciones como expandidas
+    const initial: {[key: string]: boolean} = {};
+    menuSections.forEach(section => {
+      initial[section.label] = true;
+    });
+    return initial;
+  });
+
+  const toggleSection = (sectionLabel: string) => {
+    console.log('Toggling section:', sectionLabel);
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionLabel]: !prev[sectionLabel]
+    }));
+  };
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -121,50 +150,96 @@ export const MainSidebar = () => {
       <SidebarContent>
         {/* Header del negocio actual */}
         <div className="p-4 border-b border-sidebar-border">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Building2 className="w-4 h-4 text-white" />
-            </div>
-            {!isCollapsed && (
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-sidebar-foreground truncate">
-                  {currentBusiness.name}
-                </p>
-                <p className="text-xs text-sidebar-foreground/70">
-                  {currentBusiness.industry}
-                </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Building2 className="w-4 h-4 text-white" />
               </div>
-            )}
+              {!isCollapsed && (
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-sidebar-foreground truncate">
+                    {currentBusiness.name}
+                  </p>
+                  <p className="text-xs text-sidebar-foreground/70">
+                    {currentBusiness.industry}
+                  </p>
+                </div>
+              )}
+            </div>
+            
+            {/* Botón para minimizar/expandir */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                console.log('Toggle sidebar clicked, current state:', state);
+                toggleSidebar();
+              }}
+              className="h-8 w-8 p-0 hover:bg-sidebar-accent"
+            >
+              {isCollapsed ? (
+                <ChevronRight className="w-4 h-4" />
+              ) : (
+                <ChevronLeft className="w-4 h-4" />
+              )}
+            </Button>
           </div>
+
+          {/* Logo SKALE en sidebar */}
+          {!isCollapsed && (
+            <div className="mt-3 pt-3 border-t border-sidebar-border/50">
+              <p className="text-sm font-black font-orbitron text-center bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tracking-wider">
+                SKALE
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Menú de navegación */}
-        <div className="flex-1 px-2 py-4 space-y-6">
+        <div className="flex-1 px-2 py-4 space-y-2">
           {menuSections.map((section) => (
             <SidebarGroup key={section.label}>
               {!isCollapsed && (
-                <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/60 font-semibold mb-2">
-                  {section.label}
-                </SidebarGroupLabel>
+                <div className="flex items-center justify-between mb-2">
+                  <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/60 font-semibold">
+                    {section.label}
+                  </SidebarGroupLabel>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => toggleSection(section.label)}
+                    className="h-6 w-6 p-0 hover:bg-sidebar-accent"
+                  >
+                    {expandedSections[section.label] ? (
+                      <ChevronUp className="w-3 h-3" />
+                    ) : (
+                      <ChevronDown className="w-3 h-3" />
+                    )}
+                  </Button>
+                </div>
               )}
-              <SidebarGroupContent>
-                <SidebarMenu className="space-y-1">
-                  {section.items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild className="p-0">
-                        <NavLink to={item.url} className={getNavClass(item.url)}>
-                          <div className="flex items-center space-x-3 p-2 rounded-lg w-full">
-                            <item.icon className="w-5 h-5 flex-shrink-0" />
-                            {!isCollapsed && (
-                              <span className="text-sm font-medium">{item.title}</span>
-                            )}
-                          </div>
-                        </NavLink>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
+              
+              {/* Contenido colapsable */}
+              {(isCollapsed || expandedSections[section.label]) && (
+                <SidebarGroupContent>
+                  <SidebarMenu className="space-y-1">
+                    {section.items.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton asChild className="p-0">
+                          <NavLink to={item.url} className={getNavClass(item.url)}>
+                            <div className="flex items-center space-x-3 p-2 rounded-lg w-full">
+                              <item.icon className="w-5 h-5 flex-shrink-0" />
+                              {!isCollapsed && (
+                                <span className="text-sm font-medium">{item.title}</span>
+                              )}
+                            </div>
+                          </NavLink>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              )}
             </SidebarGroup>
           ))}
         </div>

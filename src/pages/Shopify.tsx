@@ -1,17 +1,19 @@
 
 import React from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
-import { ModernExecutiveDashboard } from '@/components/dashboard/ModernExecutiveDashboard';
 import { BusinessProvider } from '@/contexts/BusinessContext';
+import { ShopifyDashboard } from '@/components/shopify/ShopifyDashboard';
 
-const Index = () => {
+const Shopify = () => {
+  console.log('Shopify Component: Renderizando dashboard de Shopify');
+  
   return (
     <BusinessProvider>
       <MainLayout>
-        <ModernExecutiveDashboard />
+        <ShopifyDashboard />
       </MainLayout>
     </BusinessProvider>
   );
 };
 
-export default Index;
+export default Shopify;
