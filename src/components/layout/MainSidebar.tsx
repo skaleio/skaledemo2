@@ -190,7 +190,7 @@ export const MainSidebar = () => {
         </div>
 
         {/* Menú de navegación */}
-        <div className="flex-1 px-2 py-4 space-y-6">
+        <div className="flex-1 px-2 py-4 space-y-2">
           {menuSections.map((section) => (
             <SidebarGroup key={section.label}>
               {!isCollapsed && (
