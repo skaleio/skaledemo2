@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   Building2,
@@ -17,7 +17,9 @@ import {
   Zap,
   FileText,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import {
   Sidebar,
@@ -89,6 +91,24 @@ export const MainSidebar = () => {
   const { state, toggleSidebar } = useSidebar();
   const location = useLocation();
   const { currentBusiness } = useBusiness();
+  
+  // Estado para controlar qué secciones están expandidas
+  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>(() => {
+    // Inicializar todas las secciones como expandidas
+    const initial: {[key: string]: boolean} = {};
+    menuSections.forEach(section => {
+      initial[section.label] = true;
+    });
+    return initial;
+  });
+
+  const toggleSection = (sectionLabel: string) => {
+    console.log('Toggling section:', sectionLabel);
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionLabel]: !prev[sectionLabel]
+    }));
+  };
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -174,28 +194,46 @@ export const MainSidebar = () => {
           {menuSections.map((section) => (
             <SidebarGroup key={section.label}>
               {!isCollapsed && (
-                <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/60 font-semibold mb-2">
-                  {section.label}
-                </SidebarGroupLabel>
+                <div className="flex items-center justify-between mb-2">
+                  <SidebarGroupLabel className="text-xs uppercase tracking-wider text-sidebar-foreground/60 font-semibold">
+                    {section.label}
+                  </SidebarGroupLabel>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => toggleSection(section.label)}
+                    className="h-6 w-6 p-0 hover:bg-sidebar-accent"
+                  >
+                    {expandedSections[section.label] ? (
+                      <ChevronUp className="w-3 h-3" />
+                    ) : (
+                      <ChevronDown className="w-3 h-3" />
+                    )}
+                  </Button>
+                </div>
               )}
-              <SidebarGroupContent>
-                <SidebarMenu className="space-y-1">
-                  {section.items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild className="p-0">
-                        <NavLink to={item.url} className={getNavClass(item.url)}>
-                          <div className="flex items-center space-x-3 p-2 rounded-lg w-full">
-                            <item.icon className="w-5 h-5 flex-shrink-0" />
-                            {!isCollapsed && (
-                              <span className="text-sm font-medium">{item.title}</span>
-                            )}
-                          </div>
-                        </NavLink>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
+              
+              {/* Contenido colapsable */}
+              {(isCollapsed || expandedSections[section.label]) && (
+                <SidebarGroupContent>
+                  <SidebarMenu className="space-y-1">
+                    {section.items.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton asChild className="p-0">
+                          <NavLink to={item.url} className={getNavClass(item.url)}>
+                            <div className="flex items-center space-x-3 p-2 rounded-lg w-full">
+                              <item.icon className="w-5 h-5 flex-shrink-0" />
+                              {!isCollapsed && (
+                                <span className="text-sm font-medium">{item.title}</span>
+                              )}
+                            </div>
+                          </NavLink>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              )}
             </SidebarGroup>
           ))}
         </div>
