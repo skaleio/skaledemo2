@@ -15,7 +15,9 @@ import {
   BarChart3,
   Target,
   Zap,
-  FileText
+  FileText,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import {
   Sidebar,
@@ -29,6 +31,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useBusiness } from '@/contexts/BusinessContext';
+import { Button } from '@/components/ui/button';
 
 const menuSections = [
   {
@@ -83,7 +86,7 @@ const menuSections = [
 ];
 
 export const MainSidebar = () => {
-  const { state } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
   const location = useLocation();
   const { currentBusiness } = useBusiness();
 
@@ -121,21 +124,46 @@ export const MainSidebar = () => {
       <SidebarContent>
         {/* Header del negocio actual */}
         <div className="p-4 border-b border-sidebar-border">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Building2 className="w-4 h-4 text-white" />
-            </div>
-            {!isCollapsed && (
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-sidebar-foreground truncate">
-                  {currentBusiness.name}
-                </p>
-                <p className="text-xs text-sidebar-foreground/70">
-                  {currentBusiness.industry}
-                </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Building2 className="w-4 h-4 text-white" />
               </div>
-            )}
+              {!isCollapsed && (
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-sidebar-foreground truncate">
+                    {currentBusiness.name}
+                  </p>
+                  <p className="text-xs text-sidebar-foreground/70">
+                    {currentBusiness.industry}
+                  </p>
+                </div>
+              )}
+            </div>
+            
+            {/* Botón para minimizar/expandir */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleSidebar}
+              className="h-8 w-8 p-0 hover:bg-sidebar-accent"
+            >
+              {isCollapsed ? (
+                <ChevronRight className="w-4 h-4" />
+              ) : (
+                <ChevronLeft className="w-4 h-4" />
+              )}
+            </Button>
           </div>
+
+          {/* Logo SKALE en sidebar */}
+          {!isCollapsed && (
+            <div className="mt-3 pt-3 border-t border-sidebar-border/50">
+              <p className="text-xs font-bold text-center bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                SKALE AGENCY
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Menú de navegación */}

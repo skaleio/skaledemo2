@@ -26,6 +26,14 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <BusinessSelector />
               </div>
               
+              {/* Logo SKALE */}
+              <div className="flex items-center space-x-2">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  SKALE
+                </h1>
+                <span className="text-xs text-muted-foreground">Agency</span>
+              </div>
+              
               <div className="flex items-center space-x-3">
                 {/* Notificaciones */}
                 <Button variant="ghost" size="sm" className="relative">
