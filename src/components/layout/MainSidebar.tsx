@@ -34,6 +34,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useBusiness } from '@/contexts/BusinessContext';
 import { Button } from '@/components/ui/button';
+import { RealTimeMonitor } from '@/components/monitoring/RealTimeMonitor';
 
 const menuSections = [
   {
@@ -190,7 +191,7 @@ export const MainSidebar = () => {
         </div>
 
         {/* Menú de navegación */}
-        <div className="flex-1 px-2 py-4 space-y-2">
+        <div className="flex-1 px-2 py-4 space-y-1">
           {menuSections.map((section) => (
             <SidebarGroup key={section.label}>
               {!isCollapsed && (
@@ -238,7 +239,12 @@ export const MainSidebar = () => {
           ))}
         </div>
 
-        {/* Footer */}
+        {/* Monitor en tiempo real - entre e-commerce y configuración */}
+        <div className="border-t border-sidebar-border/50">
+          <RealTimeMonitor />
+        </div>
+
+        {/* Configuración - ahora al final */}
         <div className="p-4 border-t border-sidebar-border">
           <SidebarMenuButton asChild>
             <NavLink to="/settings" className={getNavClass('/settings')}>
