@@ -180,10 +180,10 @@ export const MainSidebar = () => {
             </Button>
           </div>
 
-          {/* Logo SKALE en sidebar */}
+          {/* Logo SKALE en sidebar - sin glow */}
           {!isCollapsed && (
             <div className="mt-3 pt-3 border-t border-sidebar-border/50">
-              <p className="text-sm font-black font-orbitron text-center bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tracking-wider">
+              <p className="text-sm font-black font-orbitron text-center text-primary tracking-wider">
                 SKALE
               </p>
             </div>

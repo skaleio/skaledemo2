@@ -55,22 +55,22 @@ export const RealTimeMonitor: React.FC = () => {
   const getIcon = (type: Activity['type']) => {
     switch (type) {
       case 'sale':
-        return <Zap className="w-3 h-3" />;
+        return <ShoppingCart className="w-3 h-3" />;
       case 'revenue':
-        return <TrendingUp className="w-3 h-3" />;
+        return <DollarSign className="w-3 h-3" />;
       case 'visitor':
-        return <Activity className="w-3 h-3" />;
+        return <Eye className="w-3 h-3" />;
     }
   };
 
   const getColor = (type: Activity['type']) => {
     switch (type) {
       case 'sale':
-        return 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20';
+        return 'text-green-600 bg-green-50 border-green-200';
       case 'revenue':  
-        return 'text-amber-400 bg-amber-400/10 border-amber-400/20';
+        return 'text-orange-600 bg-orange-50 border-orange-200';
       case 'visitor':
-        return 'text-cyan-400 bg-cyan-400/10 border-cyan-400/20';
+        return 'text-blue-600 bg-blue-50 border-blue-200';
     }
   };
 
@@ -82,57 +82,56 @@ export const RealTimeMonitor: React.FC = () => {
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
         <div className="text-xs font-bold text-sidebar-foreground/90 uppercase tracking-widest flex items-center space-x-1">
-          <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           <span className="font-orbitron">LIVE</span>
         </div>
         <div className="flex space-x-1">
-          <div className="w-1 h-1 bg-emerald-400 rounded-full animate-pulse" style={{animationDelay: '0ms'}}></div>
-          <div className="w-1 h-1 bg-amber-400 rounded-full animate-pulse" style={{animationDelay: '200ms'}}></div>
-          <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: '400ms'}}></div>
+          <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" style={{animationDelay: '0ms'}}></div>
+          <div className="w-1 h-1 bg-orange-500 rounded-full animate-pulse" style={{animationDelay: '200ms'}}></div>
+          <div className="w-1 h-1 bg-blue-500 rounded-full animate-pulse" style={{animationDelay: '400ms'}}></div>
         </div>
       </div>
 
       {!isCollapsed && (
         <>
-          {/* Estadísticas compactas futuristas */}
+          {/* Estadísticas compactas estilo Shopify */}
           <div className="grid grid-cols-3 gap-1 mb-3">
-            <div className="flex flex-col items-center p-2 bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-400/20 rounded-lg backdrop-blur-sm">
-              <Zap className="w-4 h-4 text-emerald-400 mb-1 animate-pulse" />
+            <div className="flex flex-col items-center p-2 bg-green-50 border border-green-200 rounded-lg">
+              <ShoppingCart className="w-4 h-4 text-green-600 mb-1" />
               <span className="text-xs font-bold text-sidebar-foreground font-mono">{data.sales}</span>
             </div>
-            <div className="flex flex-col items-center p-2 bg-gradient-to-br from-amber-500/10 to-amber-600/5 border border-amber-400/20 rounded-lg backdrop-blur-sm">
-              <TrendingUp className="w-4 h-4 text-amber-400 mb-1 animate-pulse" />
+            <div className="flex flex-col items-center p-2 bg-orange-50 border border-orange-200 rounded-lg">
+              <DollarSign className="w-4 h-4 text-orange-600 mb-1" />
               <span className="text-xs font-bold text-sidebar-foreground font-mono">${data.revenue}</span>
             </div>
-            <div className="flex flex-col items-center p-2 bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border border-cyan-400/20 rounded-lg backdrop-blur-sm">
-              <Activity className="w-4 h-4 text-cyan-400 mb-1 animate-pulse" />
+            <div className="flex flex-col items-center p-2 bg-blue-50 border border-blue-200 rounded-lg">
+              <Eye className="w-4 h-4 text-blue-600 mb-1" />
               <span className="text-xs font-bold text-sidebar-foreground font-mono">{data.visitors}</span>
             </div>
           </div>
 
-          {/* Feed de actividad en tiempo real futurista */}
+          {/* Feed de actividad en tiempo real estilo Shopify */}
           <div className="space-y-1">
             {activities.map((activity, index) => (
               <div
                 key={activity.id}
-                className={`flex items-center space-x-2 p-1.5 rounded-md border backdrop-blur-sm transition-all duration-500 ${
-                  index === 0 ? 'animate-fade-in scale-105 shadow-lg' : ''
+                className={`flex items-center space-x-2 p-1.5 rounded-md border transition-all duration-500 ${
+                  index === 0 ? 'animate-fade-in scale-105' : ''
                 } ${getColor(activity.type)}`}
                 style={{
                   animationDelay: `${index * 100}ms`
                 }}
               >
-                <div className="flex-shrink-0 relative">
+                <div className="flex-shrink-0">
                   {getIcon(activity.type)}
-                  <div className="absolute inset-0 rounded-full animate-ping opacity-30 bg-current"></div>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="w-full h-1 bg-current/20 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-current/60 to-current rounded-full animate-pulse"
+                      className="h-full bg-current/60 rounded-full"
                       style={{ 
                         width: `${Math.random() * 100}%`,
-                        animation: 'pulse 1s ease-in-out infinite, shimmer 2s linear infinite'
+                        transition: 'width 0.5s ease-out'
                       }}
                     ></div>
                   </div>
@@ -148,20 +147,19 @@ export const RealTimeMonitor: React.FC = () => {
         </>
       )}
 
-      {/* Versión colapsada - solo iconos animados futuristas */}
+      {/* Versión colapsada - solo iconos animados */}
       {isCollapsed && (
         <div className="flex justify-center space-x-1">
           {activities.slice(0, 3).map((activity, index) => (
             <div
               key={activity.id}
-              className={`p-1 rounded-full border backdrop-blur-sm relative ${getColor(activity.type)} animate-bounce`}
+              className={`p-1 rounded-full border ${getColor(activity.type)} animate-bounce`}
               style={{
                 animationDelay: `${index * 200}ms`,
                 animationDuration: '1s'
               }}
             >
               {getIcon(activity.type)}
-              <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-current"></div>
             </div>
           ))}
         </div>

@@ -26,9 +26,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <BusinessSelector />
               </div>
               
-              {/* Logo SKALE con animación de latido */}
+              {/* Logo SKALE con animación de latido - sin glow */}
               <div className="flex items-center">
-                <h1 className="text-2xl font-black font-orbitron bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tracking-wider animate-heartbeat">
+                <h1 className="text-2xl font-black font-orbitron text-primary tracking-wider animate-heartbeat">
                   SKALE
                 </h1>
               </div>
