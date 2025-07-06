@@ -24,6 +24,11 @@ import GoogleAds from "./pages/GoogleAds";
 import SEO from "./pages/SEO";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import Shopify from "./pages/Shopify";
+import Products from "./pages/Products";
+import Orders from "./pages/Orders";
+import Payments from "./pages/Payments";
+import Retell from "./pages/Retell";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -57,6 +62,11 @@ const App = () => {
             <Route path="/google-ads" element={<GoogleAds />} />
             <Route path="/seo" element={<SEO />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/shopify" element={<Shopify />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/retell" element={<Retell />} />
             <Route path="/settings" element={<Settings />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

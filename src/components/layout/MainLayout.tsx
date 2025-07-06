@@ -1,17 +1,20 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { MainSidebar } from './MainSidebar';
 import { BusinessSelector } from './BusinessSelector';
 import { Button } from '@/components/ui/button';
 import { Bell, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { LoginDialog } from './LoginDialog';
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -42,10 +45,15 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   </Badge>
                 </Button>
                 
-                {/* Usuario */}
-                <Button variant="ghost" size="sm" className="space-x-2">
+                {/* Usuario - clickeable para abrir login */}
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="space-x-2"
+                  onClick={() => setIsLoginOpen(true)}
+                >
                   <User className="w-5 h-5" />
-                  <span className="hidden md:inline">Admin</span>
+                  <span className="hidden md:inline">Iniciar Sesión</span>
                 </Button>
               </div>
             </div>
@@ -59,6 +67,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </main>
         </div>
       </div>
+
+      {/* Dialog de Login */}
+      <LoginDialog 
+        open={isLoginOpen} 
+        onOpenChange={setIsLoginOpen} 
+      />
     </SidebarProvider>
   );
 };

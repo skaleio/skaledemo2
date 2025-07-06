@@ -19,7 +19,13 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  ShoppingCart,
+  Package,
+  Truck,
+  CreditCard,
+  Phone,
+  Mic
 } from 'lucide-react';
 import {
   Sidebar,
@@ -54,11 +60,21 @@ const menuSections = [
     ]
   },
   {
+    label: 'E-commerce & Shopify',
+    items: [
+      { title: 'Tienda Shopify', url: '/shopify', icon: ShoppingCart },
+      { title: 'Gestión de Productos', url: '/products', icon: Package },
+      { title: 'Pedidos y Envíos', url: '/orders', icon: Truck },
+      { title: 'Pagos y Facturación', url: '/payments', icon: CreditCard },
+    ]
+  },
+  {
     label: 'IA & Automatizaciones',
     items: [
       { title: 'Workflows N8N', url: '/workflows', icon: Zap },
       { title: 'Estado de Bots', url: '/bots-status', icon: Bot },
       { title: 'Logs & Monitoreo', url: '/logs', icon: Target },
+      { title: 'Retell AI Voices', url: '/retell', icon: Phone },
     ]
   },
   {
