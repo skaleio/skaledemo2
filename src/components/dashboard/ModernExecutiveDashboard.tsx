@@ -18,7 +18,11 @@ import {
   Plus,
   Activity,
   Clock,
-  Briefcase
+  Briefcase,
+  Calendar,
+  Award,
+  Flame,
+  AlertTriangle
 } from 'lucide-react';
 import { useBusiness } from '@/contexts/BusinessContext';
 
@@ -111,6 +115,24 @@ const recentActivities = [
     value: '2.5k',
     color: 'text-pink-600'
   }
+];
+
+const monthlyGoals = [
+  { title: 'Revenue Goal', current: 127450, target: 150000, percentage: 85, color: 'bg-green-500' },
+  { title: 'Leads Goal', current: 2847, target: 3200, percentage: 89, color: 'bg-blue-500' },
+  { title: 'Conversión Goal', current: 24.8, target: 28, percentage: 89, color: 'bg-purple-500' }
+];
+
+const topPerformingCampaigns = [
+  { name: 'Black Friday 2024', roi: '5.2x', spend: '$12,450', leads: 340, status: 'active' },
+  { name: 'Lead Magnet Q4', roi: '4.8x', spend: '$8,200', leads: 280, status: 'active' },
+  { name: 'Retargeting Premium', roi: '6.1x', spend: '$5,600', leads: 156, status: 'paused' }
+];
+
+const alerts = [
+  { type: 'warning', title: 'Presupuesto al 85%', description: 'Campaña Black Friday', priority: 'medium' },
+  { type: 'success', title: 'Objetivo superado', description: 'Conversiones +12%', priority: 'low' },
+  { type: 'info', title: 'Nuevo lead VIP', description: 'Requiere seguimiento', priority: 'high' }
 ];
 
 export const ModernExecutiveDashboard = () => {
@@ -330,6 +352,154 @@ export const ModernExecutiveDashboard = () => {
             </CardContent>
           </Card>
         </div>
+      </div>
+
+      {/* Nueva sección inferior con contenido adicional */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Objetivos Mensuales */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Target className="w-5 h-5 text-primary" />
+              Objetivos del Mes
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {monthlyGoals.map((goal, index) => (
+              <div key={index} className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium">{goal.title}</span>
+                  <span className="text-sm font-semibold">{goal.percentage}%</span>
+                </div>
+                <Progress value={goal.percentage} className="h-2" />
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>{typeof goal.current === 'number' && goal.current > 1000 ? `$${goal.current.toLocaleString()}` : goal.current}</span>
+                  <span>{typeof goal.target === 'number' && goal.target > 1000 ? `$${goal.target.toLocaleString()}` : goal.target}</span>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Top Campañas */}
+        <Card className="border-0 shadow-lg lg:col-span-2">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Award className="w-5 h-5 text-primary" />
+              Top Campañas Rendimiento
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {topPerformingCampaigns.map((campaign, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className={`w-3 h-3 rounded-full ${campaign.status === 'active' ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+                  <div>
+                    <p className="font-medium text-sm">{campaign.name}</p>
+                    <p className="text-xs text-muted-foreground">{campaign.spend} • {campaign.leads} leads</p>
+                  </div>
+                </div>
+                <Badge className="bg-primary/10 text-primary">
+                  ROI {campaign.roi}
+                </Badge>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Alertas y Notificaciones */}
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-primary" />
+              Alertas
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {alerts.map((alert, index) => (
+              <div key={index} className="flex items-start gap-3 p-3 rounded-lg border-l-4 border-l-primary/20 bg-muted/20">
+                <div className={`w-2 h-2 rounded-full mt-2 ${
+                  alert.priority === 'high' ? 'bg-red-500' :
+                  alert.priority === 'medium' ? 'bg-yellow-500' :
+                  'bg-green-500'
+                }`}></div>
+                <div className="flex-1">
+                  <p className="font-medium text-sm">{alert.title}</p>
+                  <p className="text-xs text-muted-foreground">{alert.description}</p>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Sección final: Próximas tareas programadas */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-primary" />
+              Próximas Tareas
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-center gap-3 p-3 bg-muted/20 rounded-lg">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <MessageCircle className="w-4 h-4 text-blue-600" />
+              </div>
+              <div className="flex-1">
+                <p className="font-medium text-sm">Seguimiento leads premium</p>
+                <p className="text-xs text-muted-foreground">Hoy - 3:00 PM</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 bg-muted/20 rounded-lg">
+              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                <BarChart3 className="w-4 h-4 text-green-600" />
+              </div>
+              <div className="flex-1">
+                <p className="font-medium text-sm">Reporte semanal</p>
+                <p className="text-xs text-muted-foreground">Mañana - 9:00 AM</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 bg-muted/20 rounded-lg">
+              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                <Target className="w-4 h-4 text-purple-600" />
+              </div>
+              <div className="flex-1">
+                <p className="font-medium text-sm">Optimizar campañas</p>
+                <p className="text-xs text-muted-foreground">Viernes - 11:30 AM</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Flame className="w-5 h-5 text-primary" />
+              Performance Highlights
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="text-center p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
+              <Flame className="w-8 h-8 text-orange-500 mx-auto mb-2" />
+              <p className="font-bold text-lg">¡Récord del mes!</p>
+              <p className="text-sm text-muted-foreground">127% del objetivo de revenue</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="text-center p-3 bg-muted/20 rounded-lg">
+                <TrendingUp className="w-5 h-5 text-green-600 mx-auto mb-1" />
+                <p className="font-semibold text-sm">+23.5%</p>
+                <p className="text-xs text-muted-foreground">Crecimiento</p>
+              </div>
+              <div className="text-center p-3 bg-muted/20 rounded-lg">
+                <Users className="w-5 h-5 text-blue-600 mx-auto mb-1" />
+                <p className="font-semibold text-sm">2,847</p>
+                <p className="text-xs text-muted-foreground">Nuevos leads</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
