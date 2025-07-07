@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { MainSidebar } from './MainSidebar';
 import { BusinessSelector } from './BusinessSelector';
@@ -14,6 +15,7 @@ interface MainLayoutProps {
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <SidebarProvider>
@@ -29,11 +31,16 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <BusinessSelector />
               </div>
               
-              {/* Logo SKALE con animación de latido - sin glow */}
+              {/* Logo SKALE clickeable para ir al dashboard */}
               <div className="flex items-center">
-                <h1 className="text-2xl font-black font-orbitron text-primary tracking-wider animate-heartbeat">
-                  SKALE
-                </h1>
+                <button 
+                  onClick={() => navigate('/')}
+                  className="hover:scale-105 transition-transform cursor-pointer"
+                >
+                  <h1 className="text-2xl font-black font-orbitron text-primary tracking-wider animate-heartbeat">
+                    SKALE
+                  </h1>
+                </button>
               </div>
               
               <div className="flex items-center space-x-3">
