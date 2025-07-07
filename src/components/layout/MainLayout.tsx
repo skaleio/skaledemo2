@@ -46,12 +46,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               </div>
               
               <div className="flex items-center space-x-3">
-                {/* Notificaciones con animación si hay notificaciones sin leer */}
+                {/* Notificaciones con animación si hay notificaciones sin leer - MEJOR CENTRADO */}
                 <Button variant="ghost" size="sm" className="relative">
                   <Bell className={`w-5 h-5 ${unreadNotifications > 0 ? 'animate-pulse' : ''}`} />
                   {unreadNotifications > 0 && (
-                    <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-destructive animate-popout">
-                      <span className="animate-popout">
+                    <Badge className="absolute -top-2 -right-2 min-w-[20px] h-5 text-xs bg-destructive text-white flex items-center justify-center p-0 animate-popout">
+                      <span className="leading-none font-semibold">
                         {unreadNotifications}
                       </span>
                     </Badge>

@@ -152,12 +152,12 @@ export const ModernExecutiveDashboard = () => {
 
   return (
     <div className="space-y-8 p-1">
-      {/* Header Moderno */}
+      {/* Header Moderno - SIN EFECTO GLOW */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <div className="w-2 h-8 bg-gradient-primary rounded-full"></div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold text-foreground">
               Dashboard Ejecutivo
             </h1>
           </div>
