@@ -18,7 +18,7 @@ interface Activity {
   customer?: string;
 }
 
-export the RealTimeMonitor: React.FC = () => {
+export const RealTimeMonitor: React.FC = () => {
   const { businessData } = useBusiness();
   const [data, setData] = useState<MonitorData>({
     sales: 0,
