@@ -5,7 +5,7 @@ import { BusinessProvider } from '@/contexts/BusinessContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { MessageSquare, Send, Bot, User, Zap, Copy, RefreshCw } from 'lucide-react';
+import { MessageSquare, Send, Bot, User, Zap, Copy, RefreshCw, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
