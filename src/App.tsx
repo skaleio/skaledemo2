@@ -30,6 +30,8 @@ import Orders from "./pages/Orders";
 import Payments from "./pages/Payments";
 import Retell from "./pages/Retell";
 import GPT from "./pages/GPT";
+import SkaleGPT from "./pages/SkaleGPT";
+import Email from "./pages/Email";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -50,6 +52,7 @@ const App = () => {
             <Route path="/whatsapp" element={<WhatsApp />} />
             <Route path="/leads" element={<Leads />} />
             <Route path="/sales-reports" element={<SalesReports />} />
+            <Route path="/skale-gpt" element={<SkaleGPT />} />
             <Route path="/gpt" element={<GPT />} />
             <Route path="/workflows" element={<Workflows />} />
             <Route path="/bots-status" element={<BotsStatus />} />
@@ -64,6 +67,7 @@ const App = () => {
             <Route path="/google-ads" element={<GoogleAds />} />
             <Route path="/seo" element={<SEO />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/email" element={<Email />} />
             <Route path="/shopify" element={<Shopify />} />
             <Route path="/products" element={<Products />} />
             <Route path="/orders" element={<Orders />} />

@@ -26,7 +26,9 @@ import {
   CreditCard,
   Phone,
   Mic,
-  MessageSquare
+  MessageSquare,
+  Mail,
+  Brain
 } from 'lucide-react';
 import {
   Sidebar,
@@ -72,6 +74,7 @@ const menuSections = [
   {
     label: 'IA & Automatizaciones',
     items: [
+      { title: 'Asistente Skale GPT', url: '/skale-gpt', icon: Brain },
       { title: 'Chat GPT', url: '/gpt', icon: MessageSquare },
       { title: 'Workflows N8N', url: '/workflows', icon: Zap },
       { title: 'Estado de Bots', url: '/bots-status', icon: Bot },
@@ -102,6 +105,7 @@ const menuSections = [
       { title: 'Google ADS', url: '/google-ads', icon: Target },
       { title: 'SEO Manager', url: '/seo', icon: Search },
       { title: 'Analytics', url: '/analytics', icon: BarChart3 },
+      { title: 'Email Marketing', url: '/email', icon: Mail },
     ]
   }
 ];
@@ -161,8 +165,8 @@ export const MainSidebar = () => {
   return (
     <Sidebar className="gradient-sidebar border-r border-sidebar-border animate-slide-in-left">
       <SidebarContent>
-        {/* Header del negocio actual */}
-        <div className="p-4 border-b border-sidebar-border">
+        {/* Header del negocio actual - SIN BORDES */}
+        <div className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {/* Icono del negocio */}
@@ -199,9 +203,9 @@ export const MainSidebar = () => {
             </Button>
           </div>
 
-          {/* Logo SKALE en sidebar con animación de bombeo */}
+          {/* Logo SKALE en sidebar con animación de bombeo - SIN BORDES */}
           {!isCollapsed && (
-            <div className="mt-3 pt-3 border-t border-sidebar-border/50">
+            <div className="mt-3 pt-3">
               <p className="text-sm font-black font-orbitron text-center text-primary tracking-wider animate-heartbeat">
                 SKALE
               </p>
@@ -258,13 +262,13 @@ export const MainSidebar = () => {
           ))}
         </div>
 
-        {/* Monitor en tiempo real - entre e-commerce y configuración */}
-        <div className="border-t border-sidebar-border/50">
+        {/* Monitor en tiempo real - SIN BORDES */}
+        <div className="px-2">
           <RealTimeMonitor />
         </div>
 
-        {/* Configuración - ahora al final */}
-        <div className="p-4 border-t border-sidebar-border">
+        {/* Configuración - SIN BORDES */}
+        <div className="p-4">
           <SidebarMenuButton asChild>
             <NavLink to="/settings" className={getNavClass('/settings')}>
               <div className="flex items-center space-x-3 p-2 rounded-lg w-full">
