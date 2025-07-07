@@ -146,6 +146,16 @@
   }
 }
 
+/* Animación popout para notificaciones */
+@keyframes popout {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
 /* Animación shimmer para las barras de progreso */
 @keyframes shimmer {
   0% {
@@ -171,6 +181,11 @@
 /* Animación de latido - 40 BPM (1.5 segundos por latido) */
 .animate-heartbeat {
   animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Animación popout para notificaciones - 40 BPM */
+.animate-popout {
+  animation: popout 1.5s ease-in-out infinite;
 }
 
 /* Efectos de hover y transiciones suaves */

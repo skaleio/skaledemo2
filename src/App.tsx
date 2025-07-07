@@ -29,6 +29,7 @@ import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import Payments from "./pages/Payments";
 import Retell from "./pages/Retell";
+import GPT from "./pages/GPT";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/whatsapp" element={<WhatsApp />} />
             <Route path="/leads" element={<Leads />} />
             <Route path="/sales-reports" element={<SalesReports />} />
+            <Route path="/gpt" element={<GPT />} />
             <Route path="/workflows" element={<Workflows />} />
             <Route path="/bots-status" element={<BotsStatus />} />
             <Route path="/logs" element={<Logs />} />

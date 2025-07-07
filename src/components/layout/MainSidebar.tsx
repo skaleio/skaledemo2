@@ -25,7 +25,8 @@ import {
   Truck,
   CreditCard,
   Phone,
-  Mic
+  Mic,
+  MessageSquare
 } from 'lucide-react';
 import {
   Sidebar,
@@ -71,6 +72,7 @@ const menuSections = [
   {
     label: 'IA & Automatizaciones',
     items: [
+      { title: 'Chat GPT', url: '/gpt', icon: MessageSquare },
       { title: 'Workflows N8N', url: '/workflows', icon: Zap },
       { title: 'Estado de Bots', url: '/bots-status', icon: Bot },
       { title: 'Logs & Monitoreo', url: '/logs', icon: Target },
@@ -107,7 +109,7 @@ const menuSections = [
 export const MainSidebar = () => {
   const { state, toggleSidebar } = useSidebar();
   const location = useLocation();
-  const { currentBusiness, unreadNotifications } = useBusiness();
+  const { currentBusiness } = useBusiness();
   
   // Estado para controlar qué secciones están expandidas
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>(() => {
@@ -163,18 +165,10 @@ export const MainSidebar = () => {
         <div className="p-4 border-b border-sidebar-border">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              {/* Logo del negocio */}
-              {currentBusiness.logo ? (
-                <img 
-                  src={currentBusiness.logo} 
-                  alt={`Logo de ${currentBusiness.name}`}
-                  className="w-8 h-8 rounded-lg object-cover border-2 border-primary/20"
-                />
-              ) : (
-                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                  <Building2 className="w-4 h-4 text-white" />
-                </div>
-              )}
+              {/* Icono del negocio */}
+              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Building2 className="w-4 h-4 text-white" />
+              </div>
               {!isCollapsed && (
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-sidebar-foreground truncate">
@@ -208,14 +202,9 @@ export const MainSidebar = () => {
           {/* Logo SKALE en sidebar con animación de bombeo */}
           {!isCollapsed && (
             <div className="mt-3 pt-3 border-t border-sidebar-border/50">
-              <p className="text-sm font-black font-orbitron text-center text-primary tracking-wider animate-pulse">
+              <p className="text-sm font-black font-orbitron text-center text-primary tracking-wider animate-heartbeat">
                 SKALE
               </p>
-              {unreadNotifications > 0 && (
-                <div className="flex justify-center mt-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full animate-pulse"></div>
-                </div>
-              )}
             </div>
           )}
         </div>

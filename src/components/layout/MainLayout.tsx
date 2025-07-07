@@ -39,7 +39,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   onClick={() => navigate('/')}
                   className="hover:scale-105 transition-transform cursor-pointer"
                 >
-                  <h1 className="text-2xl font-black font-orbitron text-primary tracking-wider animate-pulse">
+                  <h1 className="text-2xl font-black font-orbitron text-primary tracking-wider animate-heartbeat">
                     SKALE
                   </h1>
                 </button>
@@ -50,8 +50,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <Button variant="ghost" size="sm" className="relative">
                   <Bell className={`w-5 h-5 ${unreadNotifications > 0 ? 'animate-pulse' : ''}`} />
                   {unreadNotifications > 0 && (
-                    <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-destructive animate-pulse">
-                      {unreadNotifications}
+                    <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-destructive animate-popout">
+                      <span className="animate-popout">
+                        {unreadNotifications}
+                      </span>
                     </Badge>
                   )}
                 </Button>
