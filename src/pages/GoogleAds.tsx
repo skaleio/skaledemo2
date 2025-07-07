@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { BusinessProvider, useBusiness } from '@/contexts/BusinessContext';
@@ -119,7 +118,7 @@ const GoogleAdsContent = () => {
               </div>
               <div className="text-right">
                 <div className="text-xs text-muted-foreground">CPA: €18.24</div>
-                <Progress value={85) className="w-16 h-2 mt-1" />
+                <Progress value={85} className="w-16 h-2 mt-1" />
               </div>
             </div>
           </CardContent>
