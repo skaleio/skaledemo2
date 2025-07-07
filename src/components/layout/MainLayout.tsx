@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Bell, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { LoginDialog } from './LoginDialog';
+import { useBusiness } from '@/contexts/BusinessContext';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ interface MainLayoutProps {
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const { unreadNotifications } = useBusiness();
   const navigate = useNavigate();
 
   return (
@@ -31,25 +33,27 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 <BusinessSelector />
               </div>
               
-              {/* Logo SKALE clickeable para ir al dashboard */}
+              {/* Logo SKALE clickeable para ir al dashboard con animación de bombeo */}
               <div className="flex items-center">
                 <button 
                   onClick={() => navigate('/')}
                   className="hover:scale-105 transition-transform cursor-pointer"
                 >
-                  <h1 className="text-2xl font-black font-orbitron text-primary tracking-wider animate-heartbeat">
+                  <h1 className="text-2xl font-black font-orbitron text-primary tracking-wider animate-pulse">
                     SKALE
                   </h1>
                 </button>
               </div>
               
               <div className="flex items-center space-x-3">
-                {/* Notificaciones */}
+                {/* Notificaciones con animación si hay notificaciones sin leer */}
                 <Button variant="ghost" size="sm" className="relative">
-                  <Bell className="w-5 h-5" />
-                  <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-destructive">
-                    3
-                  </Badge>
+                  <Bell className={`w-5 h-5 ${unreadNotifications > 0 ? 'animate-pulse' : ''}`} />
+                  {unreadNotifications > 0 && (
+                    <Badge className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-destructive animate-pulse">
+                      {unreadNotifications}
+                    </Badge>
+                  )}
                 </Button>
                 
                 {/* Usuario - clickeable para abrir login */}

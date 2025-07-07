@@ -28,8 +28,19 @@ export const BusinessSelector = () => {
 
   return (
     <div className="flex items-center space-x-3">
-      <div className="p-2 bg-primary/10 rounded-lg">
-        <Building2 className="w-5 h-5 text-primary" />
+      {/* Logo del negocio */}
+      <div className="relative">
+        {currentBusiness?.logo ? (
+          <img 
+            src={currentBusiness.logo} 
+            alt={`Logo de ${currentBusiness.name}`}
+            className="w-8 h-8 rounded-lg object-cover border-2 border-primary/20"
+          />
+        ) : (
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Building2 className="w-4 h-4 text-primary" />
+          </div>
+        )}
       </div>
       
       <div className="flex-1">
@@ -47,9 +58,22 @@ export const BusinessSelector = () => {
             {businesses.map((business) => (
               <SelectItem key={business.id} value={business.id}>
                 <div className="flex items-center justify-between w-full">
-                  <div className="flex flex-col">
-                    <span className="font-medium">{business.name}</span>
-                    <span className="text-xs text-muted-foreground">{business.industry}</span>
+                  <div className="flex items-center space-x-3">
+                    {business.logo ? (
+                      <img 
+                        src={business.logo} 
+                        alt={`Logo de ${business.name}`}
+                        className="w-6 h-6 rounded object-cover"
+                      />
+                    ) : (
+                      <div className="w-6 h-6 bg-muted rounded flex items-center justify-center">
+                        <Building2 className="w-3 h-3" />
+                      </div>
+                    )}
+                    <div className="flex flex-col">
+                      <span className="font-medium">{business.name}</span>
+                      <span className="text-xs text-muted-foreground">{business.industry}</span>
+                    </div>
                   </div>
                   <Badge className={`ml-2 text-xs ${getPlanColor(business.plan)}`}>
                     {business.plan.toUpperCase()}
