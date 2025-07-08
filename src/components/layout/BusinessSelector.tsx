@@ -1,11 +1,11 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Building2 } from 'lucide-react';
 import { useBusiness } from '@/contexts/BusinessContext';
 
-export const BusinessSelector = () => {
+export const BusinessSelector = memo(() => {
   const { currentBusiness, businesses, setCurrentBusiness, isLoading } = useBusiness();
 
   if (isLoading) {
@@ -70,4 +70,4 @@ export const BusinessSelector = () => {
       </div>
     </div>
   );
-};
+});

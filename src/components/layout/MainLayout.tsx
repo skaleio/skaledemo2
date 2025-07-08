@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { MainSidebar } from './MainSidebar';
@@ -14,7 +14,7 @@ interface MainLayoutProps {
   children: React.ReactNode;
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC<MainLayoutProps> = memo(({ children }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const { unreadNotifications } = useBusiness();
   const navigate = useNavigate();
@@ -88,4 +88,4 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       />
     </SidebarProvider>
   );
-};
+});

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, memo, useMemo, useCallback } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   Building2,
@@ -110,7 +110,7 @@ const menuSections = [
   }
 ];
 
-export const MainSidebar = () => {
+export const MainSidebar = memo(() => {
   const { state, toggleSidebar } = useSidebar();
   const location = useLocation();
   const { currentBusiness } = useBusiness();
@@ -125,26 +125,26 @@ export const MainSidebar = () => {
     return initial;
   });
 
-  const toggleSection = (sectionLabel: string) => {
+  const toggleSection = useCallback((sectionLabel: string) => {
     console.log('Toggling section:', sectionLabel);
     setExpandedSections(prev => ({
       ...prev,
       [sectionLabel]: !prev[sectionLabel]
     }));
-  };
+  }, []);
 
-  const isActive = (path: string) => {
+  const isActive = useCallback((path: string) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
-  };
+  }, [location.pathname]);
 
-  const getNavClass = (path: string) => {
+  const getNavClass = useCallback((path: string) => {
     const baseClass = "flex items-center space-x-3 w-full text-left transition-all duration-200";
     if (isActive(path)) {
       return `${baseClass} bg-primary/10 text-primary border-r-2 border-primary`;
     }
     return `${baseClass} text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground`;
-  };
+  }, [isActive]);
 
   const isCollapsed = state === 'collapsed';
 
@@ -281,4 +281,4 @@ export const MainSidebar = () => {
       </SidebarContent>
     </Sidebar>
   );
-};
+});
