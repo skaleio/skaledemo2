@@ -77,6 +77,7 @@ const menuSections = [
       { title: 'Asistente Skale GPT', url: '/skale-gpt', icon: Brain },
       { title: 'Chat GPT', url: '/gpt', icon: MessageSquare },
       { title: 'Presentaciones IA (GenSpark)', url: '/ai-presentations', icon: FileText },
+      { title: 'Animador de Imágenes', url: '/image-animator', icon: Video },
       { title: 'Workflows N8N', url: '/workflows', icon: Zap },
       { title: 'Estado de Bots', url: '/bots-status', icon: Bot },
       { title: 'Logs & Monitoreo', url: '/logs', icon: Target },
