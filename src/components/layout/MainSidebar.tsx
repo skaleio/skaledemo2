@@ -97,6 +97,7 @@ const menuSections = [
     items: [
       { title: 'Mis Avatares', url: '/avatars', icon: Video },
       { title: 'Generar Videos', url: '/video-generator', icon: Video },
+      { title: 'Generador de Imágenes', url: '/image-generator', icon: Brain },
       { title: 'Biblioteca Videos', url: '/video-library', icon: FileText },
     ]
   },

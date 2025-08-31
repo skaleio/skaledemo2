@@ -37,6 +37,7 @@ const GPT = React.lazy(() => import("./pages/GPT"));
 const SkaleGPT = React.lazy(() => import("./pages/SkaleGPT"));
 const AIPresentations = React.lazy(() => import("./pages/AIPresentations"));
 const ImageAnimator = React.lazy(() => import("./pages/ImageAnimator"));
+const ImageGenerator = React.lazy(() => import("./pages/ImageGenerator"));
 const Email = React.lazy(() => import("./pages/Email"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
@@ -63,6 +64,7 @@ const App = () => {
               <Route path="/gpt" element={<GPT />} />
               <Route path="/ai-presentations" element={<AIPresentations />} />
               <Route path="/image-animator" element={<ImageAnimator />} />
+              <Route path="/image-generator" element={<ImageGenerator />} />
               <Route path="/workflows" element={<Workflows />} />
               <Route path="/bots-status" element={<BotsStatus />} />
               <Route path="/logs" element={<Logs />} />
